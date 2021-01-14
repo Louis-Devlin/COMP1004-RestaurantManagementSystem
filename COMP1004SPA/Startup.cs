@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using COMP1004SPA.Services;
+using COMP1004SPA.Controllers;
 
 namespace COMP1004SPA
 {
@@ -28,7 +30,21 @@ namespace COMP1004SPA
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            services.AddSingleton<BookingService>();
+            services.AddCors(options  => options.AddPolicy("ReactPolicy", builder =>
+{
+     builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+            //.AllowCredentials();
+}));
         }
+    
+        
+
+    
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,7 +65,7 @@ namespace COMP1004SPA
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors("ReactPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
