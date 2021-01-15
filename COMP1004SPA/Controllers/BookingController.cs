@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using COMP1004SPA.Models;
 using COMP1004SPA.Services;
+using System;
+
 namespace COMP1004SPA.Controllers{
     [Produces("application/json")]
     [Route("api/[controller]")]
@@ -22,6 +24,7 @@ namespace COMP1004SPA.Controllers{
 
         [HttpPost]
         public async Task<IActionResult> Post ([FromBody] Booking booking){
+            Console.WriteLine("GOT INPUT");
             return CreatedAtAction("Get",new {id = booking.Id},bookingService.CreateBooking(booking));
         }
     }

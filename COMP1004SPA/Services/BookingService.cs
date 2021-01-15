@@ -19,17 +19,25 @@ namespace COMP1004SPA.Services{
             }
             return bookings;
         }
-        public static int Count = book.Count(); 
+        public static int Bnum = book.Count(); 
         public static List<Booking> GetAllBookings(){
-            return book;
+            try
+            {
+                return book;
+            }
+            catch
+            {
+                 book = readFile();
+                return book;
+    }
         }
         public Booking CreateBooking(Booking booking){
-            booking.Id = Count++;
+            booking.Id = Bnum++;
             //StreamWriter write = new StreamWriter("./Bookings.txt");
             using( StreamWriter write = File.AppendText("./Bookings.txt")){
 
             
-            write.WriteLine("\n" + booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date.ToString());
+            write.WriteLine(booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date.ToString());
             }
             book.Add(booking);
             return booking;
