@@ -5,31 +5,31 @@ export class ViewBookings extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { bookings: [], loading: true };
   }
 
   componentDidMount() {
     this.populateWeatherData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static displayBookings(bookings) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Date/Time</th>
+            <th>Name</th>
+            <th>Contact Number</th>
+            <th>Num of People</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {bookings.map(bookings =>
+            <tr key={bookings.date}>
+              <td>{bookings.date}</td>
+              <td>{bookings.name}</td>
+              <td>{bookings.phoneNum}</td>
+              <td>{bookings.partySize}</td>
             </tr>
           )}
         </tbody>
@@ -40,20 +40,20 @@ export class ViewBookings extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : ViewBookings.renderForecastsTable(this.state.forecasts);
+      : ViewBookings.displayBookings(this.state.bookings);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel" >View Bookings</h1>
+        <p>This Shows all bookings made sorted by date </p>
         {contents}
       </div>
     );
   }
 
   async populateWeatherData() {
-    const response = await fetch('weatherforecast');
+    const response = await fetch('https://localhost:5001/api/booking');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ bookings: data, loading: false });
   }
 }
