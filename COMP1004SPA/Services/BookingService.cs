@@ -23,6 +23,17 @@ namespace COMP1004SPA.Services{
         public static List<Booking> GetAllBookings(){
             return book;
         }
+        public Booking CreateBooking(Booking booking){
+            booking.Id = Count++;
+            //StreamWriter write = new StreamWriter("./Bookings.txt");
+            using( StreamWriter write = File.AppendText("./Bookings.txt")){
+
+            
+            write.WriteLine("\n" + booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date.ToString());
+            }
+            book.Add(booking);
+            return booking;
+        }
         
     }
 

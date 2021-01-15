@@ -19,5 +19,10 @@ namespace COMP1004SPA.Controllers{
         {
             return BookingService.GetAllBookings();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Post ([FromBody] Booking booking){
+            return CreatedAtAction("Get",new {id = booking.Id},bookingService.CreateBooking(booking));
+        }
     }
 }
