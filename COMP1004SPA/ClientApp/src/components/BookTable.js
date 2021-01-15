@@ -14,7 +14,19 @@ export class BookTable extends Component {
   };
 }
 submit(){
-    alert(JSON.stringify(this.state,null,' '));
+   
+    fetch('https://localhost:5001/api/booking', {
+  method: 'POST',
+  body: JSON.stringify({
+    name: this.state.name, phoneNum : this.state.phoneNum,partySize : this.state.partySize, date : this.state.date
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8'
+  }
+})
+
+.then(alert("Booking has been made!"))
+
 }
 
 
