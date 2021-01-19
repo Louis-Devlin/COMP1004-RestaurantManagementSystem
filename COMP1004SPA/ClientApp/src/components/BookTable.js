@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import "./BookTable.css";
+
+import TextField from '@material-ui/core/TextField';
+
 export class BookTable extends Component {
   constructor() {
     super();
@@ -10,7 +13,8 @@ export class BookTable extends Component {
       name: "",
       phoneNum: "",
       partySize: 0,
-      dateTime: "",
+      date: "",
+      
     };
   }
   load() {
@@ -23,6 +27,7 @@ export class BookTable extends Component {
     })
       .then(console.log(this.state))
       .then(alert("Booking has been made!"));
+  
   }
   submit() {
     fetch("https://localhost:5001/api/booking", {
@@ -33,12 +38,16 @@ export class BookTable extends Component {
       },
     })
       .then(console.log(this.state))
-      .then(alert("Booking has been made!"));
+      .then(res=> {res.json()})
+      .catch(err => console.log(err))
+
+      .then(alert("Booking has been made!"))
+      
   }
 
   render() {
     return (
-      <div onLoad={this.load} class="col-75">
+      <div   class="col-75">
         <Form onSubmit={this.submit}>
           <FormGroup>
             <Label>Name</Label>
@@ -63,7 +72,7 @@ export class BookTable extends Component {
             <Input
               type="select"
               value={this.state.partySize}
-              onChange={(e) => this.setState({ partySize: e.target.value })}
+              onChange={(e) => this.setState({ partySize: parseInt(e.target.value) })}
             >
               <option>1</option>
               <option>2</option>
@@ -75,11 +84,13 @@ export class BookTable extends Component {
           </FormGroup>
           <FormGroup>
             <Label>Date/Time</Label>
-            <Input
-              type="datetime"
-              value={this.state.dateTime}
-              onChange={(e) => this.setState({ dateTime: e.target.value })}
-            ></Input>
+            <TextField 
+            type = "datetime-local"
+            value = {this.state.date}
+            onChange = {(e) => this.setState({date: e.target.value})}
+            
+            />
+           
           </FormGroup>
           <Button color="primary">Book</Button>
         </Form>
