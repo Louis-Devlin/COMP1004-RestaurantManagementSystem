@@ -23,11 +23,22 @@ namespace COMP1004SPA.Services{
         public static List<Booking> GetAllBookings(){
             try
             {
+                for (int i = 0; i < book.Count(); i++)
+                {
+
+                    book[i].date.ToString().Replace("T", " ");
+                }
+
                 return book;
             }
             catch
             {
                  book = readFile();
+                for (int i = 0; i < book.Count(); i++)
+                {
+
+                    book[i].date.ToString().Replace("T", " ");
+                }
                 return book;
     }
         }
@@ -41,6 +52,17 @@ namespace COMP1004SPA.Services{
             }
             book.Add(booking);
             return booking;
+        }
+        public static List<Booking> GetByDate( DateTime date){
+            //DateTime sDate = DateTime.Parse(date);
+            IEnumerable<Booking> query = book.Where(book => book.date.Date == date.Date);
+            List<Booking> list = query.ToList<Booking>();
+            for (int i = 0; i < query.Count(); i++)
+            {
+                
+                list[i].date.ToString().Replace("T", " ");
+            }
+            return query.ToList<Booking>();
         }
         
     }

@@ -27,5 +27,15 @@ namespace COMP1004SPA.Controllers{
             Console.WriteLine("GOT INPUT");
             return CreatedAtAction("Get",new {id = booking.Id},bookingService.CreateBooking(booking));
         }
-    }
+
+        [HttpGet("{date}")] 
+
+        public IEnumerable<Booking> GetByDate(DateTime date){
+            
+            return BookingService.GetByDate(date);
+        }
+       
+      
+    
+}
 }
