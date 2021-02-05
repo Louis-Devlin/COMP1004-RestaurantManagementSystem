@@ -7,7 +7,7 @@ export class Home extends Component {
     return (
       <div>
  <h1>Welcome</h1>
- <p>Welcome to the restaurant manaagement system, you are currently logged in as a staff member.
+ <p>Welcome to the restaurant management system, you are currently logged in as a staff member.
    <br/>This means you can make, ammend and cancel bookings
    <br/>You can also set the restaurant details
 
