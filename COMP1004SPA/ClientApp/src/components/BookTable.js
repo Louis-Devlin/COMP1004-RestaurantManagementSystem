@@ -83,7 +83,7 @@ export class BookTable extends Component {
             </Input>
           </FormGroup>
           <FormGroup>
-            <Label>Date/Time</Label>
+            <Label>Date/Time</Label> <br/>
             <TextField 
             type = "datetime-local"
             value = {this.state.date}
