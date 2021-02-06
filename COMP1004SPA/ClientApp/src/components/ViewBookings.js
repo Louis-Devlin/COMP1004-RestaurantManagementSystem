@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import { Button, CircularProgress } from "@material-ui/core";
 export class ViewBookings extends Component {
   static displayName = ViewBookings.name;
 
@@ -62,7 +58,9 @@ export class ViewBookings extends Component {
           defaultValue="2021-01-20"
           onChange={(e) => this.GetBookingByDate(e.target.value)}
         />
+      <Button  onClick = {this.press}>Reset</Button>
         {contents}
+        
       </div>
     );
   }
@@ -77,5 +75,14 @@ export class ViewBookings extends Component {
     const data = await responce.json();
 
     this.setState({ bookings: data, loading: false });
+  }
+   press = () =>{
+    console.log("PRESS");
+    const response =  fetch("https://localhost:5001/api/booking/")
+    .then(responce => responce.json())
+    .then(data => this.setState({bookings: data, loading: false}));
+      
+      
+    
   }
 }
