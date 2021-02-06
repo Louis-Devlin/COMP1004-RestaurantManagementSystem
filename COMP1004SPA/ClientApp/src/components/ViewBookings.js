@@ -29,9 +29,9 @@ export class ViewBookings extends Component {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((bookings) => (
-            <tr key={bookings.date}>
-              <td>{bookings.date}</td>
+                {bookings.map((bookings) => (
+                    <tr>
+                        <td>{new Date(bookings.date).toString().replace("GMT+0000 (Greenwich Mean Time)","")}</td>
               <td>{bookings.name}</td>
               <td>{bookings.phoneNum}</td>
               <td>{bookings.partySize}</td>
