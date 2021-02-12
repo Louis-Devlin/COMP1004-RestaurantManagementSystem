@@ -12,8 +12,8 @@ namespace COMP1004SPA.Services{
             string[] file = File.ReadAllLines(path);
             foreach(string s in file){
                 string[] split = s.Split(',');
-                DateTime bDate = DateTime.Parse(split[4]);
-                Booking b = new Booking(){Id = int.Parse(split[0]), name = split[1], phoneNum = split[2], partySize = int.Parse(split[3]), date = bDate };
+                
+                Booking b = new Booking(){Id = int.Parse(split[0]), name = split[1], phoneNum = split[2], partySize = int.Parse(split[3]), date = DateTime.Parse(split[4]) };
                 bookings.Add(b);
                 
             }
@@ -23,22 +23,14 @@ namespace COMP1004SPA.Services{
         public static List<Booking> GetAllBookings(){
             try
             {
-                for (int i = 0; i < book.Count(); i++)
-                {
-
-                    book[i].date.ToString().Replace("T", " ");
-                }
+                
 
                 return book;
             }
             catch
             {
                  book = readFile();
-                for (int i = 0; i < book.Count(); i++)
-                {
-
-                    book[i].date.ToString().Replace("T", " ");
-                }
+             
                 return book;
     }
         }
@@ -48,7 +40,7 @@ namespace COMP1004SPA.Services{
             using( StreamWriter write = File.AppendText("./Bookings.txt")){
 
             
-            write.WriteLine(booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date.ToString());
+            write.WriteLine("\n" + booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date);
             }
             book.Add(booking);
             return booking;
