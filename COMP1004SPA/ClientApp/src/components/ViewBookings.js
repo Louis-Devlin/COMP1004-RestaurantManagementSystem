@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
-import { Button, CircularProgress } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 export class ViewBookings extends Component {
   static displayName = ViewBookings.name;
 
@@ -53,9 +53,9 @@ export class ViewBookings extends Component {
         <p>This Shows all bookings made sorted by date </p>
         <TextField
           id="date"
-          label="date"
+          
           type="date"
-          defaultValue="2021-01-20"
+          defaultValue={new Date()}
           onChange={(e) => this.GetBookingByDate(e.target.value)}
         />
       <Button  onClick = {this.press}>Reset</Button>
