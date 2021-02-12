@@ -4,3 +4,18 @@
   width: 50%;
   margin-top: 6px;
 }
+.DateTimeLeft{
+  width : 50%;
+  float:left;
+  
+  
+  
+  }
+  .DateTimeRight{
+    width : 50%;
+    float:inline-start;
+  }
+  .invalid-feedback{
+   
+   float: right;
+  }

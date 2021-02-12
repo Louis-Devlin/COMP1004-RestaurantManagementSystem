@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
+import {Container, Row, Col} from 'reactstrap';
 import { Button } from "reactstrap";
 import "./BookTable.css";
-function submit(name, phoneNum, partySize, date) {
+function submit(name, phoneNum, partySize, date,time) {
+ 
+var dateTime = date + "T" + time + ":00"
+
+
+
+
   fetch("https://localhost:5001/api/booking", {
     method: "POST",
     body: JSON.stringify({
@@ -10,7 +17,7 @@ function submit(name, phoneNum, partySize, date) {
       name: name,
       phoneNum: phoneNum,
       partySize: partySize,
-      date: date,
+      date: dateTime
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -23,15 +30,16 @@ function submit(name, phoneNum, partySize, date) {
           name: name,
           phoneNum: phoneNum,
           partySize: partySize,
-          date: date,
+          date: dateTime
         })
       )
     )
     .then((res) => {
       res.json();
-    })
+    }).catch(e => console.log(e))
     .then(alert("Booking has been made!"))
     .then(window.location.reload(false));
+    
 }
 
 function BookTableValidation() {
@@ -39,9 +47,10 @@ function BookTableValidation() {
   const [phoneNum, setPhoneNum] = useState("");
   const [partySize, setPartySize] = useState(0);
   const [date, setDate] = useState("");
+  const [time,setTime] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    submit(name, phoneNum, partySize, date);
+    submit(name, phoneNum, partySize, date,time);
   };
   return (
     <div className="col-75">
@@ -107,20 +116,38 @@ function BookTableValidation() {
           <option>4</option>
           <option>5</option>
           <option>6</option>
+     
         </AvField>
-        <AvField
+ 
+        <AvField className ='DateTimeLeft'
           name="Booking Date"
-          label="Date/Time"
+          
           type="date"
           validate={{
             required: {
               value: true,
-              errorMessage: "You must select a date and Time",
+              errorMessage: "You must select a date",
             },
           }}
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
+        <AvField className="DateTimeRight"
+          name="Time"
+          
+          type="time"
+          validate={{
+            required: {
+              value: true,
+              errorMessage: "You must select a time",
+            },
+          }}
+          value = {time}
+          onChange = {(e) => setTime(e.target.value)}
+        />
+        <br/><br/>
+     
+       
         <Button color="primary">Submit</Button>
       </AvForm>
     </div>
