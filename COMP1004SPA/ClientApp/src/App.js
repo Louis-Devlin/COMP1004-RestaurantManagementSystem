@@ -4,7 +4,8 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import {  ViewBookings } from './components/ViewBookings';
 import { Counter } from './components/Counter';
-import {BookTable} from './components/BookTable';
+import  BookTableFunctional  from './components/BookTableFunctional';
+import BookTableValidation from './components/BookTableValidation';
 
 import './custom.css'
 
@@ -16,7 +17,7 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/SetDetails' component={Counter} />
-        <Route path='/Book-Table' component={BookTable}/>
+        <Route path='/Book-Table' component={BookTableValidation}/>
         <Route path='/View-Bookings' component={ViewBookings} />
 
       </Layout>
