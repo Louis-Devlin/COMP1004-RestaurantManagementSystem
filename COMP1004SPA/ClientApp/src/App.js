@@ -3,7 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import {  ViewBookings } from './components/ViewBookings';
-import { Counter } from './components/Counter';
+import  SetDetails  from './components/SetDetails';
 import  BookTableFunctional  from './components/BookTableFunctional';
 import BookTableValidation from './components/BookTableValidation';
 
@@ -16,7 +16,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/SetDetails' component={Counter} />
+        <Route path='/SetDetails' component={SetDetails} />
         <Route path='/Book-Table' component={BookTableValidation}/>
         <Route path='/View-Bookings' component={ViewBookings} />
 
