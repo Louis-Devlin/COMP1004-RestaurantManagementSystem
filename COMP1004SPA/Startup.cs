@@ -31,6 +31,7 @@ namespace COMP1004SPA
                 configuration.RootPath = "ClientApp/build";
             });
             services.AddSingleton<BookingService>();
+            services.AddSingleton<DetailsService>();
             services.AddCors(options  => options.AddPolicy("ReactPolicy", builder =>
 {
      builder.AllowAnyOrigin()
