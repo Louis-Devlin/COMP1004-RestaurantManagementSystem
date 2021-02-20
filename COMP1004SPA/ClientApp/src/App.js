@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
+import Home  from './components/Home';
 import {  ViewBookings } from './components/ViewBookings';
 import  SetDetails  from './components/SetDetails';
 import  BookTableFunctional  from './components/BookTableFunctional';
