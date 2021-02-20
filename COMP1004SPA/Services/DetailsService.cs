@@ -19,5 +19,12 @@ namespace COMP1004SPA.Services{
         
         return detail;
     }
+    public static Details update(Details newDetails){
+        detail.numOfTables = newDetails.numOfTables;
+        detail.openTime = newDetails.openTime;
+        detail.closeTime = newDetails.closeTime;
+        File.WriteAllText("./Details.txt",newDetails.numOfTables + "\n" + newDetails.openTime + "\n" + newDetails.closeTime);
+        return detail;
+    }
 }
 }

@@ -21,5 +21,10 @@ namespace COMP1004SPA.Controllers{
         {
             return DetailsService.GetDetails();
         }
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Details details){
+            DetailsService.update(details);
+            return NoContent();
+        }
     }
 }
