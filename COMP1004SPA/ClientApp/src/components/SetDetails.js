@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "./BookTable.css"
 import { Button } from "reactstrap";
@@ -40,7 +40,9 @@ function SetDetails() {
     
   }
 
-
+  useEffect(() => {
+    fetchDetails();
+  });
   return (
     <div className="col-75"> 
       <h1>Set Details</h1>
@@ -66,8 +68,7 @@ function SetDetails() {
         <AvField className="DateTimeRight" name="Close Time" type="Time" value ={close} onChange = {(e) => setClose(e.target.value)}/>
         <Button color="primary">Submit</Button>
       </AvForm> <br/>
-      <Button onClick = {fetchDetails} >Fetch Details</Button>
-      <h1>Details</h1>
+      <h1> Current Details</h1>
       <p>Number of Tables: {details.numOfTables}</p>
       <p>Openning Time: {details.openTime}</p>
       <p>Closing Time: {details.closeTime}</p>
