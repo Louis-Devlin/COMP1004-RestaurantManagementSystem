@@ -7,6 +7,7 @@ using System.IO;
 namespace COMP1004SPA.Services{
     public class BookingService {
         public static List<Booking> book = readFile();
+        public static int Bnum = GetMax() + 1;
         public static List<Booking> readFile(string path ="./Bookings.txt"){
             List<Booking> bookings = new List<Booking>();
             string[] file = File.ReadAllLines(path);
@@ -16,10 +17,15 @@ namespace COMP1004SPA.Services{
                 Booking b = new Booking(){Id = int.Parse(split[0]), name = split[1], phoneNum = split[2], partySize = int.Parse(split[3]), date = DateTime.Parse(split[4]) };
                 bookings.Add(b);
                 
+                
             }
             return bookings;
         }
-        public static int Bnum = book.Count(); 
+        public static int GetMax(){
+            return book.Max(b => b.Id);
+        }
+        
+        
         public static List<Booking> GetAllBookings(){
             try
             {
@@ -40,7 +46,7 @@ namespace COMP1004SPA.Services{
             using( StreamWriter write = File.AppendText("./Bookings.txt")){
 
             
-            write.WriteLine("\n" + booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date);
+            write.WriteLine(booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date);
             }
             book.Add(booking);
             return booking;
@@ -55,6 +61,20 @@ namespace COMP1004SPA.Services{
                 list[i].date.ToString().Replace("T", " ");
             }
             return query.ToList<Booking>();
+        }
+        public static void Delete(int id){
+            book.RemoveAll(n => n.Id == id);
+           
+            File.WriteAllText("./Bookings.txt",string.Empty);
+            using( StreamWriter write = File.AppendText("./Bookings.txt")){
+
+            
+           
+            
+            foreach (Booking book in book){
+                 write.WriteLine(book.Id.ToString()+','+book.name+',' + book.phoneNum +',' + book.partySize.ToString()+','+ book.date);
+            }
+            }
         }
         
     }

@@ -14,23 +14,29 @@ export class ViewBookings extends Component {
   }
 
   static displayBookings(bookings) {
+    
     return (
       <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Date/Time</th>
             <th>Name</th>
             <th>Contact Number</th>
             <th>Num of People</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
                 {bookings.map((bookings) => (
                     <tr>
+                      <td>{bookings.id}</td>
                         <td>{new Date(bookings.date).toString().replace("GMT+0000 (Greenwich Mean Time)","")}</td>
               <td>{bookings.name}</td>
               <td>{bookings.phoneNum}</td>
               <td>{bookings.partySize}</td>
+              <td><Button onClick = {(e) =>del(e,bookings.id)} color = "primary">Delete</Button><Button color = "primary">Update</Button></td>
+
             </tr>
           ))}
         </tbody>
@@ -81,8 +87,18 @@ export class ViewBookings extends Component {
     const response =  fetch("https://localhost:5001/api/booking/")
     .then(responce => responce.json())
     .then(data => this.setState({bookings: data, loading: false}));
-      
-      
-    
   }
+}
+async function del(e,book) {
+  e.preventDefault()
+  alert("DELETE" + book)
+
+  fetch("https://localhost:5001/api/booking/" + book,{
+    method:'DELETE'
+  })
+  
+  window.location.reload();
+
+  
+  
 }

@@ -34,6 +34,14 @@ namespace COMP1004SPA.Controllers{
             
             return BookingService.GetByDate(date);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete (int id){
+            BookingService.Delete(id);
+            return NoContent();
+            
+        }
+        
        
       
     
