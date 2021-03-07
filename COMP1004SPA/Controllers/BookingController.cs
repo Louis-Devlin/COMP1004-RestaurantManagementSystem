@@ -41,6 +41,12 @@ namespace COMP1004SPA.Controllers{
             return NoContent();
             
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> MarkCovidPos(int id){
+            BookingService.MarkCovidPos(id);
+            return NoContent();
+
+        }
         
        
       

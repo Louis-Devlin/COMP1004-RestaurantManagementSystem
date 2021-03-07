@@ -11,6 +11,7 @@ namespace COMP1004SPA.Services{
         public static List<Booking> readFile(string path ="./Bookings.txt"){
             List<Booking> bookings = new List<Booking>();
             string[] file = File.ReadAllLines(path);
+            
             foreach(string s in file){
                 string[] split = s.Split(',');
                 
@@ -29,7 +30,7 @@ namespace COMP1004SPA.Services{
            
             
             foreach (Booking book in book){
-                 write.WriteLine(book.Id.ToString()+','+book.name+',' + book.phoneNum +',' + book.partySize.ToString()+','+ book.date);
+                 write.WriteLine(book.Id.ToString()+','+book.name+',' + book.phoneNum +',' + book.partySize.ToString()+','+ book.date + ',' + book.CovidPositive.ToString());
             }
             }
         }
@@ -81,6 +82,13 @@ namespace COMP1004SPA.Services{
           
         }
         public static void MarkCovidPos(int id){
+            foreach(Booking booking in book){
+                if(booking.Id == id){
+                    booking.CovidPositive = true;
+                }
+            }
+            UpdateTextFile();
+                   
 
         }
     }
