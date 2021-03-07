@@ -49,6 +49,9 @@ export class NavMenu extends Component {
                       </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
+                <NavItem>
+                  <NavLink tag={Link} className = "text-dark" to ="/Covid">COVID</NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>
