@@ -8,5 +8,7 @@ namespace COMP1004SPA.Models
         public string phoneNum {get;set;}
         public int partySize {get;set;}
         public DateTime date {get;set;}
+
+        public bool CovidPositive {get;set;}
     }
 }
