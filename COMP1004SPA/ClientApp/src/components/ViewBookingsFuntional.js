@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 
-
 function ViewBookings() {
   useEffect(() => {
     GetAllBookingData();
-    return () => {
-      setBookings([])
-    };
-  },[]);
+  }, []);
   const [bookings, setBookings] = useState([]);
   const [date, setDate] = useState("");
   return (
@@ -33,6 +29,7 @@ function ViewBookings() {
             <th>Name</th>
             <th>Contact Number</th>
             <th>Num of People</th>
+            <th>Covid pos</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -43,16 +40,27 @@ function ViewBookings() {
               <td>
                 {new Date(bookings.date)
                   .toString()
-                  .replace("GMT+0000 (Greenwich Mean Time)", "")}
+                  .replace("GMT+0000 (Greenwich Mean Time)", "")
+                  .replace("GMT+0100 (British Summer Time)", "")}
               </td>
-              
+
               <td>{bookings.name}</td>
               <td>{bookings.phoneNum}</td>
               <td>{bookings.partySize}</td>
+              <td>{bookings.covidPositive.toString()}</td>
               <td>
-                <Button onClick = {(e) => del(e,bookings.id)}color="primary">Delete</Button>
-                <Button onClick = {(e) => edit(e,bookings.id)}color="primary">Update</Button>
-                <Button onClick = {(e) => markCovidPos(e,bookings.id)} colour = "danger">COVID POS</Button>
+                <Button onClick={(e) => del(e, bookings.id)} color="primary">
+                  Delete
+                </Button>
+                <Button onClick={(e) => edit(e, bookings.id)} color="primary">
+                  Update
+                </Button>
+                <Button
+                  onClick={(e) => markCovidPos(e, bookings.id)}
+                  colour="danger"
+                >
+                  COVID POS
+                </Button>
               </td>
             </tr>
           ))}
@@ -79,26 +87,26 @@ function ViewBookings() {
       .then((responce) => responce.json())
       .then((data) => setBookings(data));
   }
-  async function del(e,book) {
-    e.preventDefault()
-    alert("DELETE" + book)
-    
-    fetch("https://localhost:5001/api/booking/" + book,{
-      method:'DELETE'
-    })
+  async function del(e, book) {
+    e.preventDefault();
+    alert("DELETE" + book);
+
+    fetch("https://localhost:5001/api/booking/" + book, {
+      method: "DELETE",
+    });
     press(e);
   }
-  function markCovidPos (e,id){
-    e.preventDefault()
-    fetch("https://localhost:5001/api/booking/" + id,{
-      method:"PUT"
-    })
+  function markCovidPos(e, id) {
+    e.preventDefault();
+    fetch("https://localhost:5001/api/booking/" + id, {
+      method: "PUT",
+    });
+    GetAllBookingData();
   }
-function edit(e,id){
-e.preventDefault()
-alert("EDIT" + id.toString())
-  
-}
+  function edit(e, id) {
+    e.preventDefault();
+    alert("EDIT" + id.toString());
+  }
 }
 
 export default ViewBookings;
