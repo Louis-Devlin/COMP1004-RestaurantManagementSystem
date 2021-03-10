@@ -42,7 +42,7 @@ function SetDetails() {
 
   useEffect(() => {
     fetchDetails();
-  });
+  },[]);
   return (
     <div className="col-75"> 
       <h1>Set Details</h1>

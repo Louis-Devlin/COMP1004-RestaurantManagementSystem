@@ -84,7 +84,8 @@ namespace COMP1004SPA.Services{
         public static void MarkCovidPos(int id){
             foreach(Booking booking in book){
                 if(booking.Id == id){
-                    booking.CovidPositive = true;
+                    if (booking.CovidPositive == true) booking.CovidPositive = false;
+                    else booking.CovidPositive = true;
                 }
             }
             UpdateTextFile();
