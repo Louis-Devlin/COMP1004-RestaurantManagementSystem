@@ -17,7 +17,8 @@ var dateTime = date + "T" + time + ":00"
       name: name,
       phoneNum: phoneNum,
       partySize: partySize,
-      date: dateTime
+      date: dateTime,
+      covidPos:false
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -30,7 +31,8 @@ var dateTime = date + "T" + time + ":00"
           name: name,
           phoneNum: phoneNum,
           partySize: partySize,
-          date: dateTime
+          date: dateTime,
+          covidPos:false
         })
       )
     )
@@ -48,6 +50,7 @@ function BookTableValidation() {
   const [partySize, setPartySize] = useState(0);
   const [date, setDate] = useState("");
   const [time,setTime] = useState("");
+  const [covidPos,SetCovidPos] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     submit(name, phoneNum, partySize, date,time);
@@ -72,6 +75,7 @@ function BookTableValidation() {
           }}
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Only enter letters in this field"
         />
         <AvField
           name="PhoneNum"
@@ -96,6 +100,7 @@ function BookTableValidation() {
           }}
           value={phoneNum}
           onChange={(e) => setPhoneNum(e.target.value)}
+          placeholder="Only enter numbers in this field"
         />
         <AvField
           name="Party Size"
