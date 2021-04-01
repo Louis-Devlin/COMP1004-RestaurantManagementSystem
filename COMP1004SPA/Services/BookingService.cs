@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-
+using COMP1004SPA.Services;
 namespace COMP1004SPA.Services{
     public class BookingService {
         public static List<Booking> book = readFile();
@@ -24,6 +24,8 @@ namespace COMP1004SPA.Services{
         }
         public static void UpdateTextFile (string path = "./Bookings.txt"){
                   File.WriteAllText("./Bookings.txt",string.Empty);
+                
+
             using( StreamWriter write = File.AppendText("./Bookings.txt")){
 
             
@@ -53,17 +55,28 @@ namespace COMP1004SPA.Services{
                 return book;
     }
         }
-        public Booking CreateBooking(Booking booking){
+        public bool CreateBooking(Booking booking){
             booking.Id = Bnum++;
             booking.CovidPositive = false;
             //StreamWriter write = new StreamWriter("./Bookings.txt");
+
+            Details d =   DetailsService.readFile();
+            int dHour = Convert.ToInt32(d.openTime.Split(":")[0]);
+            int dTime = Convert.ToInt32(d.openTime.Split(":")[1]);
+            if (dHour > booking.date.Hour){
+                Console.WriteLine("Restaurant is closed at this time!");
+                return false;
+            }
+            else{
+            
             using( StreamWriter write = File.AppendText("./Bookings.txt")){
 
             
             write.WriteLine(booking.Id.ToString()+','+booking.name+',' + booking.phoneNum +',' + booking.partySize.ToString()+','+ booking.date + booking.CovidPositive.ToString());
             }
             book.Add(booking);
-            return booking;
+            return true;
+            }
         }
         public static List<Booking> GetByDate( DateTime date){
             //DateTime sDate = DateTime.Parse(date);

@@ -25,7 +25,13 @@ namespace COMP1004SPA.Controllers{
         [HttpPost]
         public async Task<IActionResult> Post ([FromBody] Booking booking){
             Console.WriteLine("GOT INPUT");
-            return CreatedAtAction("Get",new {id = booking.Id},bookingService.CreateBooking(booking));
+            bool result = bookingService.CreateBooking(booking);
+            if(result){
+                return Created("",booking);
+            }else{
+                return NotFound();
+            }
+            //return CreatedAtAction("Get",new {id = booking.Id},bookingService.CreateBooking(booking));
         }
 
         [HttpGet("{date}")] 
