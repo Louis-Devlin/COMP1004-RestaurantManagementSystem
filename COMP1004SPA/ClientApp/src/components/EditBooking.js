@@ -7,24 +7,23 @@ import "./BookTable.css";
 async function getOpenningTimes() {
   var open = "";
   fetch("https://localhost:5001/api/details/")
-  .then(res => res.json)
-  .then(details =>{
-    return details.openTime + "-" + details.closeTime
-  
-  });
+    .then((res) => res.json)
+    .then((details) => {
+      return details.openTime + "-" + details.closeTime;
+    });
 }
-function submit(name, phoneNum, partySize, date, time) {
+function submit(id,name,phoneNum,partySize,date,time) {
   var dateTime = date + "T" + time + ":00";
 
-  fetch("https://localhost:5001/api/booking", {
-    method: "POST",
+  fetch("https://localhost:5001/api/booking/", {
+    method: "PUT",
     body: JSON.stringify({
-      id: 0,
+      id: id,
       name: name,
       phoneNum: phoneNum,
       partySize: partySize,
       date: dateTime,
-      covidPos: false,
+      covidPos: false
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -33,12 +32,13 @@ function submit(name, phoneNum, partySize, date, time) {
     .then(
       console.log(
         JSON.stringify({
-          id: 0,
+          id: id,
           name: name,
           phoneNum: phoneNum,
           partySize: partySize,
           date: dateTime,
-          covidPos: false,
+          covidPos: false
+          
         })
       )
     )
@@ -56,64 +56,20 @@ function submit(name, phoneNum, partySize, date, time) {
     });
 }
 
-function BookTableValidation() {
-  const [name, setName] = useState("");
-  const [phoneNum, setPhoneNum] = useState("");
+function EditBooking({id,name,phoneNum}) {
   const [partySize, setPartySize] = useState(0);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [covidPos, SetCovidPos] = useState(false);
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submit(name, phoneNum, partySize, date, time);
+    submit(id,name,phoneNum,partySize,date,time);
   };
   return (
-    <div className="col-75">
+      
+    <div>
+        <h1>Boooking ID:{id}</h1>
       <AvForm onSubmit={handleSubmit}>
-        <AvField
-          name="name"
-          label="Name"
-          type="text"
-          validate={{
-            required: { value: true, errorMessage: "Please enter a name" },
-            pattern: {
-              value: "^[A-Za-z]+$",
-              errorMessage: "Name must only contain letters",
-            },
-            maxLength: {
-              value: 50,
-              errorMessage: "Your name must be less than 50 characters",
-            },
-          }}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Only enter letters in this field"
-        />
-        <AvField
-          name="PhoneNum"
-          label="Phone Number"
-          validate={{
-            required: {
-              value: true,
-              errorMessage: "You must enter a phone number",
-            },
-            pattern: {
-              value: "^[0-9]+$",
-              errorMessage: "You must only enter numbers",
-            },
-            minLength: {
-              value: 11,
-              errorMessage: "You must only enter 11 digits for phone number",
-            },
-            maxLength: {
-              value: 11,
-              errorMessage: "You must only enter 11 digits for phone number",
-            },
-          }}
-          value={phoneNum}
-          onChange={(e) => setPhoneNum(e.target.value)}
-          placeholder="Only enter numbers in this field"
-        />
         <AvField
           name="Party Size"
           label="Number of Guests"
@@ -170,4 +126,4 @@ function BookTableValidation() {
   );
 }
 
-export default BookTableValidation;
+export default EditBooking;

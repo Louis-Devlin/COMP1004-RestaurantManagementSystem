@@ -53,6 +53,15 @@ namespace COMP1004SPA.Controllers{
             return NoContent();
 
         }
+
+        [HttpPut]
+
+        public async Task<IActionResult> Update([FromBody] Booking booking){
+            
+            BookingService.Edit(booking);
+            return NoContent();
+
+        }
         
        
       

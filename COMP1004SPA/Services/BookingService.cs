@@ -105,6 +105,16 @@ namespace COMP1004SPA.Services{
                    
 
         }
+        public static void Edit(Booking b){
+            Console.WriteLine("UPDATE");
+            foreach(Booking booking in book){
+                if(booking.Id == b.Id){
+                    booking.partySize = b.partySize;
+                    booking.date = b.date;
+                }
+                UpdateTextFile();
+            }
+        }
     }
 
 }

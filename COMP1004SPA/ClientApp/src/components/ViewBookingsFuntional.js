@@ -1,13 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import EditBooking from './EditBooking';
 function ViewBookings() {
   useEffect(() => {
     GetAllBookingData();
   }, []);
   const [bookings, setBookings] = useState([]);
   const [date, setDate] = useState("");
+  const [modal, setModal] = useState(false);
+  const[id,setID] = useState(0);
+  const [name, setName] = useState("");
+  const [phoneNum,setPhoneNum] = useState("");
+
+
+  const toggle = (e,booking) => {
+    e.preventDefault();
+    setID(booking.id)
+    setName(booking.name)
+    setPhoneNum(booking.phoneNum)
+
+
+    setModal(!modal);
+  };
   return (
     <div>
       <h1>View Bookings</h1>
@@ -52,9 +68,17 @@ function ViewBookings() {
                 <Button onClick={(e) => del(e, bookings.id)} color="primary">
                   Delete
                 </Button>
-                <Button onClick={(e) => edit(e, bookings.id)} color="primary">
+                <Button onClick={(e) => toggle(e,bookings)} color="primary">
                   Update
                 </Button>
+                <Modal isOpen={modal} toggle={toggle}>
+                  <ModalHeader>Edit Booking</ModalHeader>
+                  <ModalBody><EditBooking id= {id} name = {name} phoneNum ={phoneNum} /></ModalBody>
+                  <ModalFooter>
+                    <Button>Submit</Button>
+                    <Button onClick={toggle}>Cancel</Button>
+                  </ModalFooter>
+                </Modal>
                 <Button
                   onClick={(e) => markCovidPos(e, bookings.id)}
                   colour="danger"
